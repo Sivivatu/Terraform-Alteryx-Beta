@@ -4,6 +4,10 @@ terraform.exe
 .terraform/*
 
 network.7z
-terraform.tfvars
+# terraform.tfvars
 *.exe
+
+# Terraform state information files. Not needed
+terraform/.terraform/modules/modules.json
+terraform/.terraform/plugins/windows_amd64/lock.json
 */terraform.tfstate
