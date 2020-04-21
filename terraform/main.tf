@@ -11,41 +11,41 @@ module "networking" {
   AWS_AVAILABILITY_ZONE = var.AWS_AVAILABILITY_ZONE
 }
 
-data "aws_s3_bucket_object" "secret_key" {
-  bucket = var.S3_KEY_BUCKET
-  key    = var.S3_KEY_NAME_LOCATION
-}
+# data "aws_s3_bucket_object" "secret_key" {
+#   bucket = var.S3_KEY_BUCKET
+#   key    = var.S3_KEY_NAME_LOCATION
+# }
 
 # Manually defined SSH key from System Manager
 data "aws_ssm_parameter" "ssh" {
-  name = "AYXWindowsHostKey"
+  name = "TIL-EUWest1"
 }
 
 # TODO: adding dynamic AMI selection process
-data "aws_ami" "ayx_ami" {
-  most_recent      = true
-  name_regex       = "^WIN2016-AYX-.*"
-  owners           = ["self"]
+# data "aws_ami" "ayx_ami" {
+#   most_recent      = true
+#   name_regex       = "Microsoft Windows Server 2019 Base"
+#   owners           = ["amazon"]
 
-  filter {
-    name   = "name"
-    values = ["WIN2016-AYX-*"]
-  }
+#   # filter {
+#   #   name   = "name"
+#   #   values = ["WIN2016-AYX-*"]
+#   # }
 
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
+#   filter {
+#     name   = "root-device-type"
+#     values = ["ebs"]
+#   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+# }
 
 
 resource "aws_instance" "server" {
-  ami                      = data.aws_ami.ayx_ami.id #var.AMIS[var.AWS_REGION]
+  ami                      = "ami-0aaada7cbb0d829fc" # data.aws_ami.ayx_ami.id
   instance_type            = var.AWS_INSTANCE
   vpc_security_group_ids  = [module.networking.security_group_id_out]
   subnet_id               = module.networking.subnet_id_out
@@ -55,7 +55,7 @@ resource "aws_instance" "server" {
   key_name                = var.KEY_NAME
   tags = {
     # Name                  = "Server-Cloud"
-    Name = "Ayx-Server-${count.index}"
+    Name = "Ayx-Server-Beta-${count.index}"
   }
 
   root_block_device {

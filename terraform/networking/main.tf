@@ -28,7 +28,7 @@ resource "aws_internet_gateway" "ayx_igw" {
 resource "aws_route_table" "ayx_public_rt" {
   vpc_id = aws_vpc.ayx_vpc.id
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.VPC_CIDR
     gateway_id = aws_internet_gateway.ayx_igw.id
   }
 
