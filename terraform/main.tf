@@ -1,5 +1,5 @@
 provider "aws" {
-  region     = "us-west-1" # var.AWS_REGION
+  region     = "eu-west-1" # var.AWS_REGION
 }
 
 module "networking" {
