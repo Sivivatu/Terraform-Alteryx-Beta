@@ -1,5 +1,5 @@
 provider "aws" {
-  region     = var.AWS_REGION
+  region     = "eu-west-1" # var.AWS_REGION
 }
 
 module "networking" {
@@ -84,3 +84,21 @@ resource "aws_instance" "server" {
   #   command = "echo ${self.public_ip} >> ../public_ips.txt"
   # }
 }
+
+# resource "tfe_organization" "alt-beta" {
+#   name  = "The-Information-Lab"
+#   email = "paul.houghton@theinformationlab.co.uk"
+# }
+
+# resource "tfe_workspace" "alt-beta" {
+#   name         = "The-Information-Lab"
+#   organization = "${tfe_organization.alt-beta.id}"
+# }
+
+# resource "tfe_variable" "alt-beta" {
+#   key          = "ALLACCESSIPS"
+#   value        = ["0.0.0.0/0"]
+#   category     = "terraform"
+#   workspace_id = "${tfe_workspace.alt-beta.id}"
+#   description  = "Public access IP Addresses"
+# }
